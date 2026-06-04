@@ -30,7 +30,7 @@ class VertexAdjacency {
         return nullptr;
     }
 
-    const vector<DirectedEdge<W>>& get_all_edges() {
+    const vector<DirectedEdge<W>>& get_all_edges() const {
         return edge_vector;
     }
 };

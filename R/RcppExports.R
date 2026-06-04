@@ -9,8 +9,12 @@ add_edges <- function(sexp, from, to, weights) {
     invisible(.Call(`_graphs_add_edges`, sexp, from, to, weights))
 }
 
-get_adj_list <- function(sexp) {
-    .Call(`_graphs_get_adj_list`, sexp)
+as_adj_list <- function(sexp) {
+    .Call(`_graphs_as_adj_list`, sexp)
+}
+
+as_edge_list <- function(sexp) {
+    .Call(`_graphs_as_edge_list`, sexp)
 }
 
 rcpp_hello_world <- function() {

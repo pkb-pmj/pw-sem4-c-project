@@ -29,7 +29,7 @@ void add_edges(SEXP sexp, IntegerVector from, IntegerVector to, NumericVector we
 }
 
 // [[Rcpp::export]]
-List get_adj_list(SEXP sexp) {
+List as_adj_list(SEXP sexp) {
     XPtr<GraphAdjacency<double>> g(sexp);
     return List::import_transform(
         g->get_all_vertices().begin(),
@@ -43,5 +43,30 @@ List get_adj_list(SEXP sexp) {
                 }
             );
         }
+    );
+}
+
+// [[Rcpp::export]]
+DataFrame as_edge_list(SEXP sexp) {
+    XPtr<GraphAdjacency<double>> g(sexp);
+
+    vector<int> from1;
+    vector<int> to1;
+    vector<double> weights;
+
+    auto& vertices = g->get_all_vertices();
+    for (size_t i = 0; i < vertices.size(); i++) {
+        auto& vertex = vertices[i];
+        for (auto& edge : vertex.get_all_edges()) {
+            from1.push_back(i + 1);
+            to1.push_back(edge.to + 1);
+            weights.push_back(edge.weight);
+        }
+    }
+
+    return DataFrame::create(
+        Named("from") = from1,
+        Named("to") = to1,
+        Named("weight") = weights
     );
 }
