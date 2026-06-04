@@ -1,5 +1,7 @@
 #include <Rcpp.h>
 
+#include <vector>
+
 #include "GraphAdjacency.h"
 #include "Span.h"
 
@@ -13,7 +15,17 @@ SEXP new_graph(IntegerVector num_vertices) {
 // [[Rcpp::export]]
 void add_edges(SEXP sexp, IntegerVector from, IntegerVector to, NumericVector weights) {
     XPtr<GraphAdjacency<double>> g(sexp);
-    g->add_edges(Span<int>(from), Span<int>(to), Span<double>(weights));
+
+    size_t n = from.size();
+
+    std::vector<size_t> from0(n);
+    std::vector<size_t> to0(n);
+    for (size_t i = 0; i < n; i++) {
+        from0[i] = from[i] - 1;
+        to0[i] = to[i] - 1;
+    }
+
+    g->add_edges(Span<size_t>(from0), Span<size_t>(to0), Span<double>(weights));
 }
 
 // [[Rcpp::export]]

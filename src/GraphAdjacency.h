@@ -21,8 +21,7 @@ class GraphAdjacency {
         vertices[from].add_edge(to, weight);
     }
 
-    template<typename I>
-    void add_edges(Span<I> from, Span<I> to, Span<W> weights) {
+    void add_edges(Span<size_t> from, Span<size_t> to, Span<W> weights) {
         for (size_t i = 0; i < from.size(); i++)
             vertices[from[i]].add_edge(to[i], weights[i]);
     }
