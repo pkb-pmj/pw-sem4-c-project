@@ -34,14 +34,36 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// get_adj_list
-List get_adj_list(SEXP sexp);
-RcppExport SEXP _graphs_get_adj_list(SEXP sexpSEXP) {
+// as_adj_list
+List as_adj_list(SEXP sexp);
+RcppExport SEXP _graphs_as_adj_list(SEXP sexpSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type sexp(sexpSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_adj_list(sexp));
+    rcpp_result_gen = Rcpp::wrap(as_adj_list(sexp));
+    return rcpp_result_gen;
+END_RCPP
+}
+// as_edge_list
+DataFrame as_edge_list(SEXP sexp);
+RcppExport SEXP _graphs_as_edge_list(SEXP sexpSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type sexp(sexpSEXP);
+    rcpp_result_gen = Rcpp::wrap(as_edge_list(sexp));
+    return rcpp_result_gen;
+END_RCPP
+}
+// as_adj_matrix
+NumericMatrix as_adj_matrix(SEXP sexp);
+RcppExport SEXP _graphs_as_adj_matrix(SEXP sexpSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type sexp(sexpSEXP);
+    rcpp_result_gen = Rcpp::wrap(as_adj_matrix(sexp));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -59,7 +81,9 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_graphs_new_graph", (DL_FUNC) &_graphs_new_graph, 1},
     {"_graphs_add_edges", (DL_FUNC) &_graphs_add_edges, 4},
-    {"_graphs_get_adj_list", (DL_FUNC) &_graphs_get_adj_list, 1},
+    {"_graphs_as_adj_list", (DL_FUNC) &_graphs_as_adj_list, 1},
+    {"_graphs_as_edge_list", (DL_FUNC) &_graphs_as_edge_list, 1},
+    {"_graphs_as_adj_matrix", (DL_FUNC) &_graphs_as_adj_matrix, 1},
     {"_graphs_rcpp_hello_world", (DL_FUNC) &_graphs_rcpp_hello_world, 0},
     {NULL, NULL, 0}
 };

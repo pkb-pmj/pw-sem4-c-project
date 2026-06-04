@@ -30,6 +30,10 @@ class VertexAdjacency {
         return nullptr;
     }
 
+    const size_t num_edges() const {
+        return edge_vector.size();
+    }
+
     const vector<DirectedEdge<W>>& get_all_edges() const {
         return edge_vector;
     }

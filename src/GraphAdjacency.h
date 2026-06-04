@@ -30,6 +30,17 @@ class GraphAdjacency {
         return vertices[from].get_edge_to(to);
     }
 
+    const size_t num_vertices() const {
+        return vertices.size();
+    }
+
+    const size_t num_edges() const {
+        size_t n = 0;
+        for (auto& vertex : vertices)
+            n += vertex.num_edges();
+        return n;
+    }
+
     const vector<VertexAdjacency<W>>& get_all_vertices() {
         return vertices;
     }

@@ -70,3 +70,21 @@ DataFrame as_edge_list(SEXP sexp) {
         Named("weight") = weights
     );
 }
+
+// [[Rcpp::export]]
+NumericMatrix as_adj_matrix(SEXP sexp) {
+    XPtr<GraphAdjacency<double>> g(sexp);
+
+    size_t n = g->num_vertices();
+    NumericMatrix m = NumericMatrix::zeros(n);
+
+    auto& vertices = g->get_all_vertices();
+    for (size_t i = 0; i < n; i++) {
+        auto& vertex = vertices[i];
+        for (auto& edge : vertex.get_all_edges()) {
+            m(i, edge.to) += edge.weight;
+        }
+    }
+
+    return m;
+}
