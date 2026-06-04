@@ -1,6 +1,9 @@
 #pragma once
 
 #include <cstddef>
+#include <vector>
+
+using namespace std;
 
 template<typename T>
 class Span {
@@ -23,6 +26,11 @@ class Span {
     Span(V& v) {
         ptr = v.begin();
         n = v.end() - v.begin();
+    }
+
+    Span(vector<T> v) {
+        ptr = v.data();
+        n = v.size();
     }
 
     T* begin() const { return ptr; }
