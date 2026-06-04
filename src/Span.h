@@ -38,7 +38,11 @@ class Span {
 
     size_t size() const { return n; }
 
-    T& operator[](size_t i) const {
+    T& operator[](size_t i) {
+        return ptr[i];
+    }
+
+    const T& operator[](size_t i) const {
         return ptr[i];
     }
 };
