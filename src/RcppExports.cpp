@@ -67,16 +67,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_hello_world
-List rcpp_hello_world();
-RcppExport SEXP _graphs_rcpp_hello_world() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpp_hello_world());
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_graphs_new_graph", (DL_FUNC) &_graphs_new_graph, 1},
@@ -84,7 +74,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_graphs_as_adj_list", (DL_FUNC) &_graphs_as_adj_list, 1},
     {"_graphs_as_edge_list", (DL_FUNC) &_graphs_as_edge_list, 1},
     {"_graphs_as_adj_matrix", (DL_FUNC) &_graphs_as_adj_matrix, 1},
-    {"_graphs_rcpp_hello_world", (DL_FUNC) &_graphs_rcpp_hello_world, 0},
     {NULL, NULL, 0}
 };
 

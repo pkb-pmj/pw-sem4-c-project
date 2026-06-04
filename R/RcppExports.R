@@ -21,7 +21,3 @@ as_adj_matrix <- function(sexp) {
     .Call(`_graphs_as_adj_matrix`, sexp)
 }
 
-rcpp_hello_world <- function() {
-    .Call(`_graphs_rcpp_hello_world`)
-}
-
