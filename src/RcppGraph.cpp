@@ -1,5 +1,6 @@
 #include <Rcpp.h>
 
+#include <string>
 #include <vector>
 
 #include "GraphAdjacency.h"
@@ -35,13 +36,21 @@ List as_adj_list(SEXP sexp) {
         g->get_all_vertices().begin(),
         g->get_all_vertices().end(),
         [](VertexAdjacency<double> vertex) {
-            return NumericVector::import_transform(
+            auto weights = NumericVector::import_transform(
                 vertex.get_all_edges().begin(),
                 vertex.get_all_edges().end(),
                 [](DirectedEdge<double> edge) {
-                    return edge.to + 1;
+                    return edge.weight;
                 }
             );
+            weights.names() = CharacterVector::import_transform(
+                vertex.get_all_edges().begin(),
+                vertex.get_all_edges().end(),
+                [](DirectedEdge<double> edge) {
+                    return std::to_string(edge.to + 1);
+                }
+            );
+            return weights;
         }
     );
 }
