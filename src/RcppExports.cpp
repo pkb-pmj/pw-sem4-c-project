@@ -10,6 +10,41 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// new_graph
+SEXP new_graph(IntegerVector num_vertices);
+RcppExport SEXP _graphs_new_graph(SEXP num_verticesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type num_vertices(num_verticesSEXP);
+    rcpp_result_gen = Rcpp::wrap(new_graph(num_vertices));
+    return rcpp_result_gen;
+END_RCPP
+}
+// add_edges
+void add_edges(SEXP sexp, IntegerVector from, IntegerVector to, NumericVector weights);
+RcppExport SEXP _graphs_add_edges(SEXP sexpSEXP, SEXP fromSEXP, SEXP toSEXP, SEXP weightsSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type sexp(sexpSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type from(fromSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type to(toSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type weights(weightsSEXP);
+    add_edges(sexp, from, to, weights);
+    return R_NilValue;
+END_RCPP
+}
+// get_adj_list
+List get_adj_list(SEXP sexp);
+RcppExport SEXP _graphs_get_adj_list(SEXP sexpSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type sexp(sexpSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_adj_list(sexp));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_hello_world
 List rcpp_hello_world();
 RcppExport SEXP _graphs_rcpp_hello_world() {
@@ -22,6 +57,9 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_graphs_new_graph", (DL_FUNC) &_graphs_new_graph, 1},
+    {"_graphs_add_edges", (DL_FUNC) &_graphs_add_edges, 4},
+    {"_graphs_get_adj_list", (DL_FUNC) &_graphs_get_adj_list, 1},
     {"_graphs_rcpp_hello_world", (DL_FUNC) &_graphs_rcpp_hello_world, 0},
     {NULL, NULL, 0}
 };
