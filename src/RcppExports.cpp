@@ -45,12 +45,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // from_adj_matrix
-SEXP from_adj_matrix(NumericMatrix matrix);
+SEXP from_adj_matrix(IntegerMatrix matrix);
 RcppExport SEXP _graphs_from_adj_matrix(SEXP matrixSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type matrix(matrixSEXP);
+    Rcpp::traits::input_parameter< IntegerMatrix >::type matrix(matrixSEXP);
     rcpp_result_gen = Rcpp::wrap(from_adj_matrix(matrix));
     return rcpp_result_gen;
 END_RCPP

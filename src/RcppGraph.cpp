@@ -54,7 +54,7 @@ SEXP from_adj_list(List list) {
 }
 
 // [[Rcpp::export]]
-SEXP from_adj_matrix(NumericMatrix matrix) {
+SEXP from_adj_matrix(IntegerMatrix matrix) {
     if (matrix.nrow() != matrix.ncol())
         stop("matrix must be square");
 
@@ -62,6 +62,8 @@ SEXP from_adj_matrix(NumericMatrix matrix) {
 
     for (size_t i = 0; i < V; i++) {
         for (size_t j = i; j < V; j++) {
+            if (matrix[i + j * V] == NA_INTEGER || matrix[j + i * V] == NA_INTEGER)
+                stop("matrix must not contain NA");
             if ((matrix[i + j * V] == 0) != (matrix[j + i * V] == 0))
                 stop("matrix must be symmetric");
         }
