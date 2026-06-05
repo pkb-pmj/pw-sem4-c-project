@@ -33,3 +33,6 @@ expect_error(from_edge_list(data.frame(from = -1, to = 1), 2), "invalid vertex i
 expect_error(from_edge_list(data.frame(from = 1, to = -1), 2), "invalid vertex index -1 at df\\$to\\[1\\]")
 expect_error(from_edge_list(data.frame(from = NA, to = 1), 2), "invalid vertex index NA at df\\$from\\[1\\]")
 expect_error(from_edge_list(data.frame(from = 1, to = NA), 2), "invalid vertex index NA at df\\$to\\[1\\]")
+
+expect_error(from_adj_matrix(rbind(c(0, 1))), "matrix must be square")
+expect_error(from_adj_matrix(rbind(c(0, 1), c(0, 1))), "matrix must be symmetric")

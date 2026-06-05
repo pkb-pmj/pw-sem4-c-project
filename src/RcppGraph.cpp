@@ -55,7 +55,18 @@ SEXP from_adj_list(List list) {
 
 // [[Rcpp::export]]
 SEXP from_adj_matrix(NumericMatrix matrix) {
+    if (matrix.nrow() != matrix.ncol())
+        stop("matrix must be square");
+
     size_t V = matrix.nrow();
+
+    for (size_t i = 0; i < V; i++) {
+        for (size_t j = i; j < V; j++) {
+            if ((matrix[i + j * V] == 0) != (matrix[j + i * V] == 0))
+                stop("matrix must be symmetric");
+        }
+    }
+    
     XPtr<Graph> g(new Graph(V));
 
     for (size_t i = 0; i < V; i++) {
