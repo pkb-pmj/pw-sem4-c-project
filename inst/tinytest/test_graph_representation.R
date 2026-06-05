@@ -1,6 +1,9 @@
 library(tinytest)
 library(graphs)
 
+expect_silent(new_graph(10))
+expect_error(new_graph(c(1, 2)), pattern = "Expecting a single value")
+
 V <- 10
 from <- 1:9
 to <- 2:10
