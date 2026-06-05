@@ -28,7 +28,7 @@ SEXP from_edge_list(DataFrame df, int V) {
         if (to1[i] == NA_INTEGER)
             stop("invalid vertex index NA at df$to[%d]", i + 1);
         if (to1[i] < 1 || to1[i] > V)
-            stop("invalid vertex index %d at df$from[%d]", to1[i], i + 1);
+            stop("invalid vertex index %d at df$to[%d]", to1[i], i + 1);
     }
 
     for (size_t i = 0; i < from1.size(); i++) {
