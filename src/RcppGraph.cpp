@@ -46,7 +46,7 @@ SEXP from_adj_matrix(NumericMatrix matrix) {
     XPtr<Graph> g(new Graph(V));
 
     for (size_t i = 0; i < V; i++) {
-        for (size_t j = 0; j < V; j++) {
+        for (size_t j = i; j < V; j++) {
             if (matrix[i + j * V])
                 g->add_edge(i, j);
         }
