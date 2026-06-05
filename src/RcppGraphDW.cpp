@@ -9,12 +9,12 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-SEXP new_graph(IntegerVector num_vertices) {
+SEXP new_graph_dw(IntegerVector num_vertices) {
     return XPtr(new GraphDW<double>(num_vertices[0]));
 }
 
 // [[Rcpp::export]]
-SEXP from_adj_list(List list) {
+SEXP from_adj_list_dw(List list) {
     size_t n = list.size();
     XPtr<GraphDW<double>> g(new GraphDW<double>(n));
     for (size_t from = 0; from < n; from++) {
@@ -29,7 +29,7 @@ SEXP from_adj_list(List list) {
 }
 
 // [[Rcpp::export]]
-SEXP from_edge_list(DataFrame df, IntegerVector num_vertices) {
+SEXP from_edge_list_dw(DataFrame df, IntegerVector num_vertices) {
     IntegerVector from = df["from"];
     IntegerVector to = df["to"];
     NumericVector weights = df["weight"];
@@ -44,7 +44,7 @@ SEXP from_edge_list(DataFrame df, IntegerVector num_vertices) {
 }
 
 // [[Rcpp::export]]
-SEXP from_adj_matrix(NumericMatrix matrix) {
+SEXP from_adj_matrix_dw(NumericMatrix matrix) {
     size_t n = matrix.nrow();
     XPtr<GraphDW<double>> g(new GraphDW<double>(n));
     for (size_t i = 0; i < n; i++) {
@@ -58,7 +58,7 @@ SEXP from_adj_matrix(NumericMatrix matrix) {
 }
 
 // [[Rcpp::export]]
-void add_edges(SEXP sexp, IntegerVector from, IntegerVector to, NumericVector weights) {
+void add_edges_dw(SEXP sexp, IntegerVector from, IntegerVector to, NumericVector weights) {
     XPtr<GraphDW<double>> g(sexp);
 
     size_t n = from.size();
@@ -74,7 +74,7 @@ void add_edges(SEXP sexp, IntegerVector from, IntegerVector to, NumericVector we
 }
 
 // [[Rcpp::export]]
-List as_adj_list(SEXP sexp) {
+List as_adj_list_dw(SEXP sexp) {
     XPtr<GraphDW<double>> g(sexp);
     return List::import_transform(
         g->get_all_vertices().begin(),
@@ -100,7 +100,7 @@ List as_adj_list(SEXP sexp) {
 }
 
 // [[Rcpp::export]]
-DataFrame as_edge_list(SEXP sexp) {
+DataFrame as_edge_list_dw(SEXP sexp) {
     XPtr<GraphDW<double>> g(sexp);
 
     vector<int> from1;
@@ -125,7 +125,7 @@ DataFrame as_edge_list(SEXP sexp) {
 }
 
 // [[Rcpp::export]]
-NumericMatrix as_adj_matrix(SEXP sexp) {
+NumericMatrix as_adj_matrix_dw(SEXP sexp) {
     XPtr<GraphDW<double>> g(sexp);
 
     size_t n = g->num_vertices();
