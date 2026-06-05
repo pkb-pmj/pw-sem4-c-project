@@ -14,6 +14,50 @@ SEXP new_graph(IntegerVector num_vertices) {
 }
 
 // [[Rcpp::export]]
+SEXP from_adj_list(List list) {
+    size_t n = list.size();
+    XPtr<GraphAdjacency<double>> g(new GraphAdjacency<double>(n));
+    for (size_t from = 0; from < n; from++) {
+        NumericVector weights = list[from];
+        CharacterVector names = weights.names();
+        for (size_t j = 0; j < weights.size(); j++) {
+            size_t to = stoi(names[j].begin()) - 1;
+            g->add_edge(from, to, weights[j]);
+        }
+    }
+    return g;
+}
+
+// [[Rcpp::export]]
+SEXP from_edge_list(DataFrame df, IntegerVector num_vertices) {
+    IntegerVector from = df["from"];
+    IntegerVector to = df["to"];
+    NumericVector weights = df["weight"];
+
+    XPtr<GraphAdjacency<double>> g(new GraphAdjacency<double>(num_vertices[0]));
+
+    for (size_t i = 0; i < from.size(); i++) {
+        g->add_edge(from[i] - 1, to[i] - 1, weights[i]);
+    }
+
+    return g;
+}
+
+// [[Rcpp::export]]
+SEXP from_adj_matrix(NumericMatrix matrix) {
+    size_t n = matrix.nrow();
+    XPtr<GraphAdjacency<double>> g(new GraphAdjacency<double>(n));
+    for (size_t i = 0; i < n; i++) {
+        for (size_t j = 0; j < n; j++) {
+            double weight = matrix[i + j * n];
+            if (weight > 0)
+                g->add_edge(i, j, weight);
+        }
+    }
+    return g;
+}
+
+// [[Rcpp::export]]
 void add_edges(SEXP sexp, IntegerVector from, IntegerVector to, NumericVector weights) {
     XPtr<GraphAdjacency<double>> g(sexp);
 

@@ -21,6 +21,40 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// from_adj_list
+SEXP from_adj_list(List list);
+RcppExport SEXP _graphs_from_adj_list(SEXP listSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type list(listSEXP);
+    rcpp_result_gen = Rcpp::wrap(from_adj_list(list));
+    return rcpp_result_gen;
+END_RCPP
+}
+// from_edge_list
+SEXP from_edge_list(DataFrame df, IntegerVector num_vertices);
+RcppExport SEXP _graphs_from_edge_list(SEXP dfSEXP, SEXP num_verticesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type num_vertices(num_verticesSEXP);
+    rcpp_result_gen = Rcpp::wrap(from_edge_list(df, num_vertices));
+    return rcpp_result_gen;
+END_RCPP
+}
+// from_adj_matrix
+SEXP from_adj_matrix(NumericMatrix matrix);
+RcppExport SEXP _graphs_from_adj_matrix(SEXP matrixSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type matrix(matrixSEXP);
+    rcpp_result_gen = Rcpp::wrap(from_adj_matrix(matrix));
+    return rcpp_result_gen;
+END_RCPP
+}
 // add_edges
 void add_edges(SEXP sexp, IntegerVector from, IntegerVector to, NumericVector weights);
 RcppExport SEXP _graphs_add_edges(SEXP sexpSEXP, SEXP fromSEXP, SEXP toSEXP, SEXP weightsSEXP) {
@@ -70,6 +104,9 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_graphs_new_graph", (DL_FUNC) &_graphs_new_graph, 1},
+    {"_graphs_from_adj_list", (DL_FUNC) &_graphs_from_adj_list, 1},
+    {"_graphs_from_edge_list", (DL_FUNC) &_graphs_from_edge_list, 2},
+    {"_graphs_from_adj_matrix", (DL_FUNC) &_graphs_from_adj_matrix, 1},
     {"_graphs_add_edges", (DL_FUNC) &_graphs_add_edges, 4},
     {"_graphs_as_adj_list", (DL_FUNC) &_graphs_as_adj_list, 1},
     {"_graphs_as_edge_list", (DL_FUNC) &_graphs_as_edge_list, 1},

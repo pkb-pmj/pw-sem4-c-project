@@ -5,6 +5,18 @@ new_graph <- function(num_vertices) {
     .Call(`_graphs_new_graph`, num_vertices)
 }
 
+from_adj_list <- function(list) {
+    .Call(`_graphs_from_adj_list`, list)
+}
+
+from_edge_list <- function(df, num_vertices) {
+    .Call(`_graphs_from_edge_list`, df, num_vertices)
+}
+
+from_adj_matrix <- function(matrix) {
+    .Call(`_graphs_from_adj_matrix`, matrix)
+}
+
 add_edges <- function(sexp, from, to, weights) {
     invisible(.Call(`_graphs_add_edges`, sexp, from, to, weights))
 }
