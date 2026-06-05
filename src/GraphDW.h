@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "Span.h"
-#include "VertexAdjacency.h"
+#include "VertexDW.h"
 
 using namespace std;
 

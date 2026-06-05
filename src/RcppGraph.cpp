@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "GraphAdjacency.h"
+#include "GraphDW.h"
 #include "Span.h"
 
 using namespace Rcpp;

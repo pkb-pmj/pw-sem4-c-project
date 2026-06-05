@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "DirectedEdge.h"
+#include "EdgeDW.h"
 #include "Span.h"
 
 using namespace std;
