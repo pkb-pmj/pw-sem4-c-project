@@ -8,13 +8,13 @@
 using namespace std;
 
 template<typename W>
-class GraphAdjacency {
+class GraphDW {
   private:
-    vector<VertexAdjacency<W>> vertices;
+    vector<VertexDW<W>> vertices;
 
   public:
-    GraphAdjacency(size_t num_vertices) {
-        vertices = vector<VertexAdjacency<W>>(num_vertices);
+    GraphDW(size_t num_vertices) {
+        vertices = vector<VertexDW<W>>(num_vertices);
     }
 
     void add_edge(size_t from, size_t to, W weight) {
@@ -26,7 +26,7 @@ class GraphAdjacency {
             vertices[from[i]].add_edge(to[i], weights[i]);
     }
 
-    DirectedEdge<W>* get_edge(size_t from, size_t to) {
+    EdgeDW<W>* get_edge(size_t from, size_t to) {
         return vertices[from].get_edge_to(to);
     }
 
@@ -41,7 +41,7 @@ class GraphAdjacency {
         return n;
     }
 
-    const vector<VertexAdjacency<W>>& get_all_vertices() {
+    const vector<VertexDW<W>>& get_all_vertices() {
         return vertices;
     }
 };

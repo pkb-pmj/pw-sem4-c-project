@@ -3,7 +3,7 @@
 #include <cstddef>
 
 template<typename W>
-struct DirectedEdge {
+struct EdgeDW {
     size_t to;
     W weight;
 };

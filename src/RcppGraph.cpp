@@ -10,13 +10,13 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 SEXP new_graph(IntegerVector num_vertices) {
-    return XPtr(new GraphAdjacency<double>(num_vertices[0]));
+    return XPtr(new GraphDW<double>(num_vertices[0]));
 }
 
 // [[Rcpp::export]]
 SEXP from_adj_list(List list) {
     size_t n = list.size();
-    XPtr<GraphAdjacency<double>> g(new GraphAdjacency<double>(n));
+    XPtr<GraphDW<double>> g(new GraphDW<double>(n));
     for (size_t from = 0; from < n; from++) {
         NumericVector weights = list[from];
         CharacterVector names = weights.names();
@@ -34,7 +34,7 @@ SEXP from_edge_list(DataFrame df, IntegerVector num_vertices) {
     IntegerVector to = df["to"];
     NumericVector weights = df["weight"];
 
-    XPtr<GraphAdjacency<double>> g(new GraphAdjacency<double>(num_vertices[0]));
+    XPtr<GraphDW<double>> g(new GraphDW<double>(num_vertices[0]));
 
     for (size_t i = 0; i < from.size(); i++) {
         g->add_edge(from[i] - 1, to[i] - 1, weights[i]);
@@ -46,7 +46,7 @@ SEXP from_edge_list(DataFrame df, IntegerVector num_vertices) {
 // [[Rcpp::export]]
 SEXP from_adj_matrix(NumericMatrix matrix) {
     size_t n = matrix.nrow();
-    XPtr<GraphAdjacency<double>> g(new GraphAdjacency<double>(n));
+    XPtr<GraphDW<double>> g(new GraphDW<double>(n));
     for (size_t i = 0; i < n; i++) {
         for (size_t j = 0; j < n; j++) {
             double weight = matrix[i + j * n];
@@ -59,7 +59,7 @@ SEXP from_adj_matrix(NumericMatrix matrix) {
 
 // [[Rcpp::export]]
 void add_edges(SEXP sexp, IntegerVector from, IntegerVector to, NumericVector weights) {
-    XPtr<GraphAdjacency<double>> g(sexp);
+    XPtr<GraphDW<double>> g(sexp);
 
     size_t n = from.size();
 
@@ -75,22 +75,22 @@ void add_edges(SEXP sexp, IntegerVector from, IntegerVector to, NumericVector we
 
 // [[Rcpp::export]]
 List as_adj_list(SEXP sexp) {
-    XPtr<GraphAdjacency<double>> g(sexp);
+    XPtr<GraphDW<double>> g(sexp);
     return List::import_transform(
         g->get_all_vertices().begin(),
         g->get_all_vertices().end(),
-        [](VertexAdjacency<double> vertex) {
+        [](VertexDW<double> vertex) {
             auto weights = NumericVector::import_transform(
                 vertex.get_all_edges().begin(),
                 vertex.get_all_edges().end(),
-                [](DirectedEdge<double> edge) {
+                [](EdgeDW<double> edge) {
                     return edge.weight;
                 }
             );
             weights.names() = CharacterVector::import_transform(
                 vertex.get_all_edges().begin(),
                 vertex.get_all_edges().end(),
-                [](DirectedEdge<double> edge) {
+                [](EdgeDW<double> edge) {
                     return std::to_string(edge.to + 1);
                 }
             );
@@ -101,7 +101,7 @@ List as_adj_list(SEXP sexp) {
 
 // [[Rcpp::export]]
 DataFrame as_edge_list(SEXP sexp) {
-    XPtr<GraphAdjacency<double>> g(sexp);
+    XPtr<GraphDW<double>> g(sexp);
 
     vector<int> from1;
     vector<int> to1;
@@ -126,7 +126,7 @@ DataFrame as_edge_list(SEXP sexp) {
 
 // [[Rcpp::export]]
 NumericMatrix as_adj_matrix(SEXP sexp) {
-    XPtr<GraphAdjacency<double>> g(sexp);
+    XPtr<GraphDW<double>> g(sexp);
 
     size_t n = g->num_vertices();
     NumericMatrix m = NumericMatrix::zeros(n);
