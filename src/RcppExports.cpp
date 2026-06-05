@@ -11,12 +11,12 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // new_graph
-SEXP new_graph(IntegerVector V);
+SEXP new_graph(int V);
 RcppExport SEXP _graphs_new_graph(SEXP VSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type V(VSEXP);
+    Rcpp::traits::input_parameter< int >::type V(VSEXP);
     rcpp_result_gen = Rcpp::wrap(new_graph(V));
     return rcpp_result_gen;
 END_RCPP

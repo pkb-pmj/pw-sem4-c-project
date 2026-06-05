@@ -7,8 +7,8 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-SEXP new_graph(IntegerVector V) {
-    return XPtr(new Graph(V[0]));
+SEXP new_graph(int V) {
+    return XPtr(new Graph(V));
 }
 
 // [[Rcpp::export]]
