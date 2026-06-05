@@ -31,3 +31,5 @@ expect_error(from_edge_list(data.frame(from = 0, to = 1), 2), "invalid vertex in
 expect_error(from_edge_list(data.frame(from = 1, to = 0), 2), "invalid vertex index 0")
 expect_error(from_edge_list(data.frame(from = -1, to = 1), 2), "invalid vertex index -1")
 expect_error(from_edge_list(data.frame(from = 1, to = -1), 2), "invalid vertex index -1")
+expect_error(from_edge_list(data.frame(from = NA, to = 1), 2), "invalid vertex index NA")
+expect_error(from_edge_list(data.frame(from = 1, to = NA), 2), "invalid vertex index NA")
