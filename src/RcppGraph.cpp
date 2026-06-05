@@ -19,6 +19,15 @@ SEXP from_edge_list(DataFrame df, int V) {
     IntegerVector to1 = df["to"];
 
     for (size_t i = 0; i < from1.size(); i++) {
+        if (from1[i] < 1 || from1[i] > V)
+            stop("invalid vertex index %d at df$from[%d]", from1[i], i + 1);
+    }
+    for (size_t i = 0; i < to1.size(); i++) {
+        if (to1[i] < 1 || to1[i] > V)
+            stop("invalid vertex index %d at df$from[%d]", to1[i], i + 1);
+    }
+
+    for (size_t i = 0; i < from1.size(); i++) {
         g->add_edge(from1[i] - 1, to1[i] - 1);
     }
     
