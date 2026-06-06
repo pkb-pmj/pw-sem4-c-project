@@ -4,7 +4,8 @@ library(bench)
 library(dplyr)
 library(ggplot2)
 
-ig <- igraph::sample_gnm(10000, 1000000, directed = FALSE)
+
+ig <- igraph::sample_gnm(10000, 100*10000, directed = FALSE)
 g <- from_igraph(ig)
 bench::mark(
   sum(igraph::count_triangles(ig) / 3),
@@ -27,8 +28,25 @@ results <- bench::press(
   }
 )
 
+results_pa <- bench::press(
+  mean_degree = c(4, 16, 64),
+  V = c(100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000),
+  {
+    ig <- igraph::sample_pa(V, m = mean_degree, directed = FALSE)
+    g <- from_igraph(ig)
+    bench::mark(
+      igraph = sum(igraph::count_triangles(ig) / 3),
+      brute = graphs::triangle_count(g, method = "brute"),
+      intersect = graphs::triangle_count(g, method = "intersect")
+    )
+  }
+)
+
+results <- results_pa
+
 results <- results %>%
-  mutate(method = as.factor(attr(expression, "description")))
+  mutate(method = as.factor(attr(expression, "description"))) %>%
+  mutate(result = as.integer(result))
 
 results %>%
   ggplot(aes(x = V, y = median, color = method)) +
@@ -40,4 +58,10 @@ results %>%
   ggplot(aes(x = mean_degree, y = median, color = method)) +
   geom_line() +
   facet_wrap(vars(V)) +
+  scale_x_log10()
+
+results %>%
+  ggplot(aes(x = result, y = median, color = method)) +
+  geom_line() +
+  # facet_wrap(vars(mean_degree)) +
   scale_x_log10()
