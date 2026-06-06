@@ -4,6 +4,14 @@
 
 using namespace Rcpp;
 
+//' Counts triangles (cycles of length 3) in an undirected, unweighted graph
+//'
+//' @param sexp The graph object, created using `new_graph` or any of the `from_*` functions
+//' @param method The algorithm used to count triangles \itemize{
+//' \item brute - for each edge (u, v) count how many neighbors of u are also neighbors of v, O(E * V * log(V))
+//' \item intersect - for each edge (u, v) count the size of the intersection of their sets of neighbors, O(E * V)
+//' }
+//' @returns Number of unique triangles (cycles of length 3) in the graph
 // [[Rcpp::export]]
 int triangle_count(SEXP sexp, String method) {
     XPtr<Graph> g(sexp);
