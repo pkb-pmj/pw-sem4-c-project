@@ -1,6 +1,6 @@
 #include <Rcpp.h>
 
-#include "triangle_count_brute.h"
+#include "triangle_count.h"
 
 using namespace Rcpp;
 
