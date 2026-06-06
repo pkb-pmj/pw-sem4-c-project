@@ -45,6 +45,16 @@ SEXP from_adj_list(List list) {
 
     for (size_t u = 0; u < V; u++) {
         IntegerVector neighbors = list[u];
+        for (size_t i = 0; i < neighbors.size(); i++) {
+            if (neighbors[i] == NA_INTEGER)
+                stop("invalid vertex index NA at list[[%d]][%d]", u + 1, i + 1);
+            if (neighbors[i] < 1 || neighbors[i] > V)
+                stop("invalid vertex index %d at list[[%d]][%d]", neighbors[i], u + 1, i + 1);
+        }
+    }
+
+    for (size_t u = 0; u < V; u++) {
+        IntegerVector neighbors = list[u];
         for (auto v : neighbors) {
             g->add_edge(u, v - 1);
         }
