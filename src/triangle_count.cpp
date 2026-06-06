@@ -21,3 +21,36 @@ size_t triangle_count_brute(const Graph& g) {
 
     return count;
 }
+
+size_t intersect_count(const Span<size_t>u, const Span<size_t> v, size_t max_w) {
+    size_t i = 0;
+    size_t j = 0;
+    size_t count = 0;
+    while (i < u.size() && j < v.size()) {
+        if (u[i] >= max_w || v[j] >= max_w) break;
+        else if (u[i] == v[j]) {
+            count++;
+            i++;
+            j++;
+        }
+        else if (u[i] < v[j]) i++;
+        else j++;
+    }
+    return count;
+}
+
+size_t triangle_count_intersect(const Graph& g) {
+    size_t count = 0;
+
+    // O(E * max(deg(u), deg(v))) -> O(E * V)
+    for (size_t u = 0; u < g.V(); u++) {
+        for (auto v : g.vertices[u].neighbors) {
+            // only count each edge once, in order u > v
+            if (v >= u) break;
+            // only count each triangle once, in order u > v > w
+            count += intersect_count(g.vertices[u].neighbors, g.vertices[v].neighbors, v);
+        }
+    }
+
+    return count;
+}

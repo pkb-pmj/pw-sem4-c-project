@@ -10,6 +10,8 @@ int triangle_count(SEXP sexp, String method) {
 
     if (method == "brute")
         return triangle_count_brute(*g);
+    else if(method == "intersect")
+        return triangle_count_intersect(*g);
     else
-        stop("method must be one of \"brute\"");
+        stop("method must be one of \"brute\", \"intersect\"");
 }
