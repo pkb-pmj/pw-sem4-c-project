@@ -4,8 +4,12 @@
 
 using namespace Rcpp;
 
-// [[Rcpp::export(name = "triangle_count_brute")]]
-int rcpp_triangle_count_brute(SEXP sexp) {
+// [[Rcpp::export]]
+int triangle_count(SEXP sexp, String method) {
     XPtr<Graph> g(sexp);
-    return triangle_count_brute(*g);
+
+    if (method == "brute")
+        return triangle_count_brute(*g);
+    else
+        stop("method must be one of \"brute\"");
 }

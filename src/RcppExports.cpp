@@ -179,14 +179,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_triangle_count_brute
-int rcpp_triangle_count_brute(SEXP sexp);
-RcppExport SEXP _graphs_rcpp_triangle_count_brute(SEXP sexpSEXP) {
+// triangle_count
+int triangle_count(SEXP sexp, String method);
+RcppExport SEXP _graphs_triangle_count(SEXP sexpSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type sexp(sexpSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_triangle_count_brute(sexp));
+    Rcpp::traits::input_parameter< String >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(triangle_count(sexp, method));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -207,7 +208,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_graphs_as_adj_list_dw", (DL_FUNC) &_graphs_as_adj_list_dw, 1},
     {"_graphs_as_edge_list_dw", (DL_FUNC) &_graphs_as_edge_list_dw, 1},
     {"_graphs_as_adj_matrix_dw", (DL_FUNC) &_graphs_as_adj_matrix_dw, 1},
-    {"_graphs_rcpp_triangle_count_brute", (DL_FUNC) &_graphs_rcpp_triangle_count_brute, 1},
+    {"_graphs_triangle_count", (DL_FUNC) &_graphs_triangle_count, 2},
     {NULL, NULL, 0}
 };
 

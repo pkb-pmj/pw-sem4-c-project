@@ -61,7 +61,7 @@ as_adj_matrix_dw <- function(sexp) {
     .Call(`_graphs_as_adj_matrix_dw`, sexp)
 }
 
-triangle_count_brute <- function(sexp) {
-    .Call(`_graphs_rcpp_triangle_count_brute`, sexp)
+triangle_count <- function(sexp, method) {
+    .Call(`_graphs_triangle_count`, sexp, method)
 }
 
