@@ -1,3 +1,7 @@
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 #include "Span.h"
 
 #include "triangle_count.h"
@@ -6,6 +10,9 @@ size_t triangle_count_brute(const Graph& g) {
     size_t count = 0;
 
     // O(E * deg(v) * log(deg(w))) -> O(E * V * log(V))
+    #ifdef _OPENMP
+    #pragma omp parallel for schedule(dynamic) reduction(+:count)
+    #endif
     for (size_t u = 0; u < g.V(); u++) {
         for (auto v : g.vertices[u].neighbors) {
             // only count each edge once, in order u > v
@@ -43,6 +50,9 @@ size_t triangle_count_intersect(const Graph& g) {
     size_t count = 0;
 
     // O(E * max(deg(u), deg(v))) -> O(E * V)
+    #ifdef _OPENMP
+    #pragma omp parallel for schedule(dynamic) reduction(+:count)
+    #endif
     for (size_t u = 0; u < g.V(); u++) {
         for (auto v : g.vertices[u].neighbors) {
             // only count each edge once, in order u > v
