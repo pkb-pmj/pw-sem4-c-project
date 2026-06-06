@@ -1,3 +1,5 @@
+#include "Span.h"
+
 #include "triangle_count.h"
 
 size_t triangle_count_brute(const Graph& g) {
