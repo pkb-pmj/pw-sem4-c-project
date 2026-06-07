@@ -8,12 +8,10 @@
 
 using namespace Rcpp;
 
-// [[Rcpp::export]]
 SEXP new_graph_dw(IntegerVector num_vertices) {
     return XPtr(new GraphDW<double>(num_vertices[0]));
 }
 
-// [[Rcpp::export]]
 SEXP from_adj_list_dw(List list) {
     size_t n = list.size();
     XPtr<GraphDW<double>> g(new GraphDW<double>(n));
@@ -28,7 +26,6 @@ SEXP from_adj_list_dw(List list) {
     return g;
 }
 
-// [[Rcpp::export]]
 SEXP from_edge_list_dw(DataFrame df, IntegerVector num_vertices) {
     IntegerVector from = df["from"];
     IntegerVector to = df["to"];
@@ -43,7 +40,6 @@ SEXP from_edge_list_dw(DataFrame df, IntegerVector num_vertices) {
     return g;
 }
 
-// [[Rcpp::export]]
 SEXP from_adj_matrix_dw(NumericMatrix matrix) {
     size_t n = matrix.nrow();
     XPtr<GraphDW<double>> g(new GraphDW<double>(n));
@@ -57,7 +53,6 @@ SEXP from_adj_matrix_dw(NumericMatrix matrix) {
     return g;
 }
 
-// [[Rcpp::export]]
 void add_edges_dw(SEXP sexp, IntegerVector from, IntegerVector to, NumericVector weights) {
     XPtr<GraphDW<double>> g(sexp);
 
@@ -73,7 +68,6 @@ void add_edges_dw(SEXP sexp, IntegerVector from, IntegerVector to, NumericVector
     g->add_edges(Span<size_t>(from0), Span<size_t>(to0), Span<double>(weights));
 }
 
-// [[Rcpp::export]]
 List as_adj_list_dw(SEXP sexp) {
     XPtr<GraphDW<double>> g(sexp);
     return List::import_transform(
@@ -99,7 +93,6 @@ List as_adj_list_dw(SEXP sexp) {
     );
 }
 
-// [[Rcpp::export]]
 DataFrame as_edge_list_dw(SEXP sexp) {
     XPtr<GraphDW<double>> g(sexp);
 
@@ -124,7 +117,6 @@ DataFrame as_edge_list_dw(SEXP sexp) {
     );
 }
 
-// [[Rcpp::export]]
 NumericMatrix as_adj_matrix_dw(SEXP sexp) {
     XPtr<GraphDW<double>> g(sexp);
 

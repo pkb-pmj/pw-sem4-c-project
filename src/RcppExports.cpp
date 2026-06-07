@@ -88,97 +88,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// new_graph_dw
-SEXP new_graph_dw(IntegerVector num_vertices);
-RcppExport SEXP _graphs_new_graph_dw(SEXP num_verticesSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type num_vertices(num_verticesSEXP);
-    rcpp_result_gen = Rcpp::wrap(new_graph_dw(num_vertices));
-    return rcpp_result_gen;
-END_RCPP
-}
-// from_adj_list_dw
-SEXP from_adj_list_dw(List list);
-RcppExport SEXP _graphs_from_adj_list_dw(SEXP listSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type list(listSEXP);
-    rcpp_result_gen = Rcpp::wrap(from_adj_list_dw(list));
-    return rcpp_result_gen;
-END_RCPP
-}
-// from_edge_list_dw
-SEXP from_edge_list_dw(DataFrame df, IntegerVector num_vertices);
-RcppExport SEXP _graphs_from_edge_list_dw(SEXP dfSEXP, SEXP num_verticesSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type num_vertices(num_verticesSEXP);
-    rcpp_result_gen = Rcpp::wrap(from_edge_list_dw(df, num_vertices));
-    return rcpp_result_gen;
-END_RCPP
-}
-// from_adj_matrix_dw
-SEXP from_adj_matrix_dw(NumericMatrix matrix);
-RcppExport SEXP _graphs_from_adj_matrix_dw(SEXP matrixSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type matrix(matrixSEXP);
-    rcpp_result_gen = Rcpp::wrap(from_adj_matrix_dw(matrix));
-    return rcpp_result_gen;
-END_RCPP
-}
-// add_edges_dw
-void add_edges_dw(SEXP sexp, IntegerVector from, IntegerVector to, NumericVector weights);
-RcppExport SEXP _graphs_add_edges_dw(SEXP sexpSEXP, SEXP fromSEXP, SEXP toSEXP, SEXP weightsSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type sexp(sexpSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type from(fromSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type to(toSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type weights(weightsSEXP);
-    add_edges_dw(sexp, from, to, weights);
-    return R_NilValue;
-END_RCPP
-}
-// as_adj_list_dw
-List as_adj_list_dw(SEXP sexp);
-RcppExport SEXP _graphs_as_adj_list_dw(SEXP sexpSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type sexp(sexpSEXP);
-    rcpp_result_gen = Rcpp::wrap(as_adj_list_dw(sexp));
-    return rcpp_result_gen;
-END_RCPP
-}
-// as_edge_list_dw
-DataFrame as_edge_list_dw(SEXP sexp);
-RcppExport SEXP _graphs_as_edge_list_dw(SEXP sexpSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type sexp(sexpSEXP);
-    rcpp_result_gen = Rcpp::wrap(as_edge_list_dw(sexp));
-    return rcpp_result_gen;
-END_RCPP
-}
-// as_adj_matrix_dw
-NumericMatrix as_adj_matrix_dw(SEXP sexp);
-RcppExport SEXP _graphs_as_adj_matrix_dw(SEXP sexpSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type sexp(sexpSEXP);
-    rcpp_result_gen = Rcpp::wrap(as_adj_matrix_dw(sexp));
-    return rcpp_result_gen;
-END_RCPP
-}
 // triangle_count
 int triangle_count(SEXP sexp, String method);
 RcppExport SEXP _graphs_triangle_count(SEXP sexpSEXP, SEXP methodSEXP) {
@@ -200,14 +109,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_graphs_as_edge_list", (DL_FUNC) &_graphs_as_edge_list, 1},
     {"_graphs_as_adj_list", (DL_FUNC) &_graphs_as_adj_list, 1},
     {"_graphs_as_adj_matrix", (DL_FUNC) &_graphs_as_adj_matrix, 1},
-    {"_graphs_new_graph_dw", (DL_FUNC) &_graphs_new_graph_dw, 1},
-    {"_graphs_from_adj_list_dw", (DL_FUNC) &_graphs_from_adj_list_dw, 1},
-    {"_graphs_from_edge_list_dw", (DL_FUNC) &_graphs_from_edge_list_dw, 2},
-    {"_graphs_from_adj_matrix_dw", (DL_FUNC) &_graphs_from_adj_matrix_dw, 1},
-    {"_graphs_add_edges_dw", (DL_FUNC) &_graphs_add_edges_dw, 4},
-    {"_graphs_as_adj_list_dw", (DL_FUNC) &_graphs_as_adj_list_dw, 1},
-    {"_graphs_as_edge_list_dw", (DL_FUNC) &_graphs_as_edge_list_dw, 1},
-    {"_graphs_as_adj_matrix_dw", (DL_FUNC) &_graphs_as_adj_matrix_dw, 1},
     {"_graphs_triangle_count", (DL_FUNC) &_graphs_triangle_count, 2},
     {NULL, NULL, 0}
 };
