@@ -40,14 +40,40 @@ from_adj_matrix <- function(matrix) {
     .Call(`_graphs_from_adj_matrix`, matrix)
 }
 
+#' Exports graph as edgelist.
+#'
+#' @param sexp Graph object.
+#' @returns Edgelist - data frame with two columns: "from" and "to",
+#' representing two endpoints of every edge.
+#' Every edge (u, v) is only included once, in order u < v.
+#' The ordering of edges is guaranteed to be deterministic,
+#' and will be the same for every created graph object with the same set of vertices and edges.
+#' Also, in the current implementation edges are sorted first by v and then by u,
+#' but this specific ordering definitely shouldn't be relied upon and might change in the future.
 as_edge_list <- function(sexp) {
     .Call(`_graphs_as_edge_list`, sexp)
 }
 
+#' Exports graph as an adjacency list.
+#'
+#' @param sexp Graph object.
+#' @returns Adjacency list - a list of integer vectors, where k-th vector represents neighbors of vertex k.
+#' Every edge (u, v) will be included in both directions,
+#' i.e. u will be included as neighbor of v, and v as neighbor of u.
+#' The ordering of neighbors is guaranteed to be deterministic,
+#' and will be the same for every created graph object with the same set of vertices and edges.
+#' Also, in the current implementation neighbors of every vertex are sorted in increasing order.
+#' This probably won't change, but isn't guaranteed, so shouldn't be relied upon too much.
 as_adj_list <- function(sexp) {
     .Call(`_graphs_as_adj_list`, sexp)
 }
 
+#' Exports graph as an adjacency matrix.
+#' @param sexp Graph object.
+#' @returns Adjacency matrix - a numeric matrix of size (V, V),
+#' where V is the number of vertices. Element (i, j) will be set to 1
+#' if there's an edge between vertices i, j and 0 if there isn't.
+#' The matrix is of course square and symmetric.
 as_adj_matrix <- function(sexp) {
     .Call(`_graphs_as_adj_matrix`, sexp)
 }
