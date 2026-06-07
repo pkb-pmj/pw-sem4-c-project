@@ -6,11 +6,22 @@
 
 using namespace Rcpp;
 
+
+//' Creates an undirected, unweighted graph with the provided number of vertices.
+//'
+//' @param V Number of vertices, must be an integer vector of length 1.
+//' @returns Graph object with the provided number of vertices and no edges.
 // [[Rcpp::export]]
 SEXP new_graph(int V) {
     return XPtr(new Graph(V));
 }
 
+//' Creates an undirected, unweighted graph from an edgelist.
+//'
+//' @param df Edgelist dataframe, must have two columns: "from" and "to", representing the two vertices of each edge.
+//' Duplicated edges are silently ignored. Indexes outside of range (or NA) throw an error.
+//' @param V Number of vertices, must be an integer vector of length 1.
+//' @returns Graph constructed from the edgelist.
 // [[Rcpp::export]]
 SEXP from_edge_list(DataFrame df, int V) {
     XPtr<Graph> g(new Graph(V));
@@ -38,6 +49,14 @@ SEXP from_edge_list(DataFrame df, int V) {
     return g;
 }
 
+//' Creates an undirected, unweighted graph from an adjacency list.
+//'
+//' @param list Adjacency list, represented as a list of integer vectors;
+//' k-th vector in the list represents the set of neighbors of vertex k.
+//' Neighbors might be in any order, edges can be specified from any one direction or both,
+//' duplicated edges will be silently ignored, leaving only a single one.
+//' Indexes outside of range (or NA) throw an error.
+//' @returns Graph constructed from the adjacency list.
 // [[Rcpp::export]]
 SEXP from_adj_list(List list) {
     size_t V = list.size();
@@ -63,6 +82,11 @@ SEXP from_adj_list(List list) {
     return g;
 }
 
+//' Creates an undirected, unweighted graph from an adjacency matrix.
+//'
+//' @param matrix Adjacency matrix. A nonzero element at position (i, j) represent an edge between vertices (i, j).
+//' Must be square obviously, and symmetric. NA elements will throw an error.
+//' @returns Graph constructed from the adjacency matrix.
 // [[Rcpp::export]]
 SEXP from_adj_matrix(IntegerMatrix matrix) {
     if (matrix.nrow() != matrix.ncol())
