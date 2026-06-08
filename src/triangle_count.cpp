@@ -14,14 +14,14 @@ size_t triangle_count_brute(const Graph& g) {
     #pragma omp parallel for schedule(dynamic) reduction(+:count)
     #endif
     for (size_t u = 0; u < g.V(); u++) {
-        for (auto v : g.vertices[u].neighbors) {
+        for (auto v : g[u].neighbors) {
             // only count each edge once, in order u > v
             if (v >= u) break;
 
-            for (auto w : g.vertices[v].neighbors) {
+            for (auto w : g[v].neighbors) {
                 // only count each triangle once, in order u > v > w
                 if (w >= v) break;
-                if (g.vertices[w].has_neighbor(u)) count++;
+                if (g[w].has_neighbor(u)) count++;
             }
         }
     }
@@ -54,11 +54,11 @@ size_t triangle_count_intersect(const Graph& g) {
     #pragma omp parallel for schedule(dynamic) reduction(+:count)
     #endif
     for (size_t u = 0; u < g.V(); u++) {
-        for (auto v : g.vertices[u].neighbors) {
+        for (auto v : g[u].neighbors) {
             // only count each edge once, in order u > v
             if (v >= u) break;
             // only count each triangle once, in order u > v > w
-            count += intersect_count(g.vertices[u].neighbors, g.vertices[v].neighbors, v);
+            count += intersect_count(g[u].neighbors, g[v].neighbors, v);
         }
     }
 
