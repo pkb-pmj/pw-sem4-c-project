@@ -47,4 +47,10 @@ struct Vertex {
     size_t operator[](size_t v) const {
         return neighbors[v];
     }
+
+    size_t* begin() { return neighbors.data(); }
+    size_t* end() { return begin() + neighbors.size(); }
+
+    const size_t* begin() const { return neighbors.data(); }
+    const size_t* end() const { return begin() + neighbors.size(); }
 };
