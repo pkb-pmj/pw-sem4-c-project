@@ -44,7 +44,15 @@ struct Graph {
     size_t E() const {
         size_t e = 0;
         for (auto& v : vertices)
-            e += v.num_neighbors();
+            e += v.deg();
         return e / 2;
+    }
+
+    Vertex& operator[](size_t u) {
+        return vertices[u];
+    }
+
+    const Vertex& operator[](size_t u) const {
+        return vertices[u];
     }
 };

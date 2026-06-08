@@ -36,7 +36,15 @@ struct Vertex {
         return binary_search(neighbors.begin(), neighbors.end(), v);
     }
 
-    size_t num_neighbors() const {
+    size_t deg() const {
         return neighbors.size();
+    }
+
+    size_t& operator[](size_t v) {
+        return neighbors[v];
+    }
+
+    size_t operator[](size_t v) const {
+        return neighbors[v];
     }
 };
