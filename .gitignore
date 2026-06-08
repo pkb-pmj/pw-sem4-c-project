@@ -10,3 +10,7 @@ src/*.dll
 *.tar.gz
 
 .clangd
+
+bench/data/*
+bench/results/*
+!.keep
