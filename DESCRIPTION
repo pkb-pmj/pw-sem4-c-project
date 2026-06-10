@@ -1,13 +1,17 @@
 Package: graphs
 Type: Package
-Title: Concise Summary of What the Package Does
+Title: Your Favorite Graph Algorithms, Now Streaming Online
 Version: 0.0.1
 Date: 2026-06-03
-Authors@R: person("Your", "Name", role = c("aut", "cre"), email =
-       "your@email.com")
-Description: More about what it does (maybe more than one line).
+Authors@R: person("Paweł", "Buczyński", role = c("aut", "cre"), email =
+       "pkb.pmj@gmail.com")
+Description: Online/streaming/incremental variants of popular graph algorithms
+       (currently triangle counting),
+       optimized for fast incremental updates of single vertices/edges,
+       without the need for recomputing from scratch on every update.
 License: GPL (>= 2)
 Imports: Rcpp (>= 1.1.1)
 LinkingTo: Rcpp
 Suggests: tinytest, igraph
 RoxygenNote: 7.3.3
+Encoding: UTF-8
