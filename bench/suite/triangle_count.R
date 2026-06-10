@@ -18,6 +18,8 @@ results <- bench::press(
 
 commit <- system("git rev-parse --short HEAD", intern = TRUE)
 commit_idx <- system("git rev-list --count HEAD", intern = TRUE)
-filename <- paste0("bench/results/", Sys.Date(), "-sha", commit, ".rds")
+
+filename <- paste0("bench/results/", format(Sys.time(), tz = "Z"), " sha", commit, ".rds")
+
 results$commit_idx <- commit_idx
 saveRDS(results, file = filename)
