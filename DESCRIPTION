@@ -15,3 +15,4 @@ LinkingTo: Rcpp
 Suggests: tinytest, igraph
 RoxygenNote: 7.3.3
 Encoding: UTF-8
+URL: https://pkb-pmj.github.io/pw-sem4-c-project/
