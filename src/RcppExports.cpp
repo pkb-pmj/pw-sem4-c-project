@@ -88,6 +88,32 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// add_edge
+bool add_edge(SEXP sexp, int u, int v);
+RcppExport SEXP _graphs_add_edge(SEXP sexpSEXP, SEXP uSEXP, SEXP vSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type sexp(sexpSEXP);
+    Rcpp::traits::input_parameter< int >::type u(uSEXP);
+    Rcpp::traits::input_parameter< int >::type v(vSEXP);
+    rcpp_result_gen = Rcpp::wrap(add_edge(sexp, u, v));
+    return rcpp_result_gen;
+END_RCPP
+}
+// remove_edge
+bool remove_edge(SEXP sexp, int u, int v);
+RcppExport SEXP _graphs_remove_edge(SEXP sexpSEXP, SEXP uSEXP, SEXP vSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type sexp(sexpSEXP);
+    Rcpp::traits::input_parameter< int >::type u(uSEXP);
+    Rcpp::traits::input_parameter< int >::type v(vSEXP);
+    rcpp_result_gen = Rcpp::wrap(remove_edge(sexp, u, v));
+    return rcpp_result_gen;
+END_RCPP
+}
 // triangle_count
 int triangle_count(SEXP sexp, String method);
 RcppExport SEXP _graphs_triangle_count(SEXP sexpSEXP, SEXP methodSEXP) {
@@ -100,6 +126,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// enable_triangle_count
+void enable_triangle_count(SEXP sexp, bool enable);
+RcppExport SEXP _graphs_enable_triangle_count(SEXP sexpSEXP, SEXP enableSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type sexp(sexpSEXP);
+    Rcpp::traits::input_parameter< bool >::type enable(enableSEXP);
+    enable_triangle_count(sexp, enable);
+    return R_NilValue;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_graphs_new_graph", (DL_FUNC) &_graphs_new_graph, 1},
@@ -109,7 +146,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_graphs_as_edge_list", (DL_FUNC) &_graphs_as_edge_list, 1},
     {"_graphs_as_adj_list", (DL_FUNC) &_graphs_as_adj_list, 1},
     {"_graphs_as_adj_matrix", (DL_FUNC) &_graphs_as_adj_matrix, 1},
+    {"_graphs_add_edge", (DL_FUNC) &_graphs_add_edge, 3},
+    {"_graphs_remove_edge", (DL_FUNC) &_graphs_remove_edge, 3},
     {"_graphs_triangle_count", (DL_FUNC) &_graphs_triangle_count, 2},
+    {"_graphs_enable_triangle_count", (DL_FUNC) &_graphs_enable_triangle_count, 2},
     {NULL, NULL, 0}
 };
 

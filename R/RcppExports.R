@@ -78,15 +78,43 @@ as_adj_matrix <- function(sexp) {
     .Call(`_graphs_as_adj_matrix`, sexp)
 }
 
+#' Add edge to graph
+#' @description Adds an edge between vertices (u, v) if it doesn't already exist in the graph.
+#' @param sexp Graph object.
+#' @param u, v Vertices between which an edge will be added. Must be valid vertices in the graph, and not NA.
+#' @returns TRUE if the edge has been added, FALSE if it already existed and hasn't been added.
+add_edge <- function(sexp, u, v) {
+    .Call(`_graphs_add_edge`, sexp, u, v)
+}
+
+#' Remove edge from graph
+#' @description Removes an edge between vertices (u, v) if it exists in the graph.
+#' @param sexp Graph object.
+#' @param u, v Vertices connected by the edge which will be removed. Must be valid vertices in the graph, and not NA.
+#' @returns TRUE if the edge has been removed, FALSE if it didn't exist and so couldn't be removed.
+remove_edge <- function(sexp, u, v) {
+    .Call(`_graphs_remove_edge`, sexp, u, v)
+}
+
 #' Counts triangles (cycles of length 3) in an undirected, unweighted graph
 #'
 #' @param sexp The graph object, created using `new_graph` or any of the `from_*` functions
-#' @param method The algorithm used to count triangles \itemize{
+#' @param method The algorithm used to count triangles: \itemize{
 #' \item brute - for each edge (u, v) count how many neighbors of u are also neighbors of v, O(E * V * log(V))
 #' \item intersect - for each edge (u, v) count the size of the intersection of their sets of neighbors, O(E * V)
 #' }
 #' @returns Number of unique triangles (cycles of length 3) in the graph
 triangle_count <- function(sexp, method) {
     .Call(`_graphs_triangle_count`, sexp, method)
+}
+
+#' Enable/disable online triangle counting
+#' @description Enables or disables optimized online triangle counting for the provided graph object.
+#' When enabled, computes initial triangle count using an offline algorithm (the same as triangle_count(method = "intersect")).
+#' Enabling when already enabled or disabling when already disabled does nothing.
+#' @param sexp Graph object.
+#' @param enable Whether to enable (TRUE) or disable (FALSE) online triangle counting.
+enable_triangle_count <- function(sexp, enable = TRUE) {
+    invisible(.Call(`_graphs_enable_triangle_count`, sexp, enable))
 }
 

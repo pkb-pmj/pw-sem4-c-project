@@ -200,3 +200,45 @@ NumericMatrix as_adj_matrix(SEXP sexp) {
 
     return m;
 }
+
+//' Add edge to graph
+//' @description Adds an edge between vertices (u, v) if it doesn't already exist in the graph.
+//' @param sexp Graph object.
+//' @param u, v Vertices between which an edge will be added. Must be valid vertices in the graph, and not NA.
+//' @returns TRUE if the edge has been added, FALSE if it already existed and hasn't been added.
+// [[Rcpp::export]]
+bool add_edge(SEXP sexp, int u, int v) {
+    XPtr<Graph> g(sexp);
+
+    if (u == NA_INTEGER)
+        stop("invalid vertex u: NA");
+    if (u < 1 || u > g->V())
+        stop("invalid vertex u: %d", u);
+    if (v == NA_INTEGER)
+        stop("invalid vertex v: NA");
+    if (v < 1 || v > g->V())
+        stop("invalid vertex v: %d", v);
+
+    return g->add_edge(u, u);
+}
+
+//' Remove edge from graph
+//' @description Removes an edge between vertices (u, v) if it exists in the graph.
+//' @param sexp Graph object.
+//' @param u, v Vertices connected by the edge which will be removed. Must be valid vertices in the graph, and not NA.
+//' @returns TRUE if the edge has been removed, FALSE if it didn't exist and so couldn't be removed.
+// [[Rcpp::export]]
+bool remove_edge(SEXP sexp, int u, int v) {
+    XPtr<Graph> g(sexp);
+
+    if (u == NA_INTEGER)
+        stop("invalid vertex u: NA");
+    if (u < 1 || u > g->V())
+        stop("invalid vertex u: %d", u);
+    if (v == NA_INTEGER)
+        stop("invalid vertex v: NA");
+    if (v < 1 || v > g->V())
+        stop("invalid vertex v: %d", v);
+
+    return g->remove_edge(u, u);
+}
