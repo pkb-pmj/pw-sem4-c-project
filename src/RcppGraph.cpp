@@ -204,7 +204,8 @@ NumericMatrix as_adj_matrix(SEXP sexp) {
 //' Add edge to graph
 //' @description Adds an edge between vertices (u, v) if it doesn't already exist in the graph.
 //' @param sexp Graph object.
-//' @param u, v Vertices between which an edge will be added. Must be valid vertices in the graph, and not NA.
+//' @param u First vertex of the edge to be added. Must be a valid vertex in the graph, and not NA.
+//' @param v Second vertex of the edge to be added. Must be a valid vertex in the graph, and not NA.
 //' @returns TRUE if the edge has been added, FALSE if it already existed and hasn't been added.
 // [[Rcpp::export]]
 bool add_edge(SEXP sexp, int u, int v) {
@@ -225,7 +226,8 @@ bool add_edge(SEXP sexp, int u, int v) {
 //' Remove edge from graph
 //' @description Removes an edge between vertices (u, v) if it exists in the graph.
 //' @param sexp Graph object.
-//' @param u, v Vertices connected by the edge which will be removed. Must be valid vertices in the graph, and not NA.
+//' @param u First vertex of the edge to be removed. Must be a valid vertex in the graph, and not NA.
+//' @param v Second vertex of the edge to be removed. Must be a valid vertex in the graph, and not NA.
 //' @returns TRUE if the edge has been removed, FALSE if it didn't exist and so couldn't be removed.
 // [[Rcpp::export]]
 bool remove_edge(SEXP sexp, int u, int v) {
