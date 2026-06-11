@@ -37,7 +37,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">triangle_count</span><span class="op">(</span><span class="va">sexp</span>, <span class="va">method</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">triangle_count</span><span class="op">(</span><span class="va">sexp</span>, method <span class="op">=</span> <span class="cn">NA_character_</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -49,8 +49,14 @@
 
 
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
-<dd><p>The algorithm used to count triangles</p><ul><li><p>brute - for each edge (u, v) count how many neighbors of u are also neighbors of v, O(E * V * log(V))</p></li>
-<li><p>intersect - for each edge (u, v) count the size of the intersection of their sets of neighbors, O(E * V)</p></li>
+<dd><p>The algorithm used to count triangles:</p><ul><li><p>"brute" - for each edge (u, v) count how many neighbors of u are also neighbors of v, O(E * V * log(V)).</p></li>
+<li><p>"intersect" - for each edge (u, v) count the size of the intersection of their sets of neighbors, O(E * V).</p></li>
+<li><p>"online" - use the online algorithm, incrementally updating after every edge addition/removal.
+    If enable_online_triangle_count(sexp, TRUE) wasn't called manually, this function will do it,
+    computing triangle count using the offline "intersect" algorithm - so if you want maximum performance
+    from the first call of triangle_count(sexp, "online"), call enable_online_triangle_count(sexp, TRUE)
+    manually beforehand.</p></li>
+<li><p>NA - uses online triangle counting if it was enabled, or "intersect" otherwise.</p></li>
 </ul></dd>
 
 </dl></div>

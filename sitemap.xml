@@ -2,9 +2,11 @@
 <url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/404.html</loc></url>
 <url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/authors.html</loc></url>
 <url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/index.html</loc></url>
+<url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/reference/add_edge.html</loc></url>
 <url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/reference/as_adj_list.html</loc></url>
 <url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/reference/as_adj_matrix.html</loc></url>
 <url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/reference/as_edge_list.html</loc></url>
+<url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/reference/enable_triangle_count.html</loc></url>
 <url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/reference/from_adj_list.html</loc></url>
 <url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/reference/from_adj_matrix.html</loc></url>
 <url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/reference/from_edge_list.html</loc></url>
@@ -12,6 +14,7 @@
 <url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/reference/graphs-package.html</loc></url>
 <url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/reference/index.html</loc></url>
 <url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/reference/new_graph.html</loc></url>
+<url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/reference/remove_edge.html</loc></url>
 <url><loc>https://pkb-pmj.github.io/pw-sem4-c-project/reference/triangle_count.html</loc></url>
 </urlset>
 
