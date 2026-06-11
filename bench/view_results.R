@@ -1,6 +1,5 @@
 library(dplyr)
 library(ggplot2)
-library(bench)
 
 files <- list.files("bench/results", pattern = "*.rds")
 
@@ -23,7 +22,13 @@ results <- results %>%
   )
 
 results %>%
-  ggplot(aes(x = commit_idx, y = median, color = method, group = method)) +
+  group_by(method, name) %>%
+  arrange(file) %>%
+  mutate(idx = seq(n())) %>%
+  ungroup() %>%
+  ggplot(aes(x = idx, y = median, color = method, group = method)) +
   geom_line() +
-  facet_wrap(vars(name)) +
+  facet_wrap(vars(name), scales = "free") +
   scale_y_log10()
+
+metadata <- read.csv("bench/data/metadata.csv")
