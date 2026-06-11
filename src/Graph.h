@@ -10,9 +10,13 @@ struct Graph {
 
     Graph(size_t V): vertices(V) {}
 
-    void add_edge(size_t u, size_t v) {
-        vertices[u].add_neighbor(v);
-        vertices[v].add_neighbor(u);
+    bool add_edge(size_t u, size_t v) {
+        if (vertices[u].add_neighbor(v)) {
+            vertices[v].add_neighbor(u);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     void add_edges(Span<size_t> u, Span<size_t> v) {
@@ -22,9 +26,13 @@ struct Graph {
         }
     }
 
-    void remove_edge(size_t u, size_t v) {
-        vertices[u].remove_neighbor(v);
-        vertices[v].remove_neighbor(u);
+    bool remove_edge(size_t u, size_t v) {
+        if (vertices[u].remove_neighbor(v)) {
+            vertices[v].remove_neighbor(u);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     void remove_edges(Span<size_t> u, Span<size_t> v) {

@@ -8,16 +8,24 @@
 struct Vertex {
     std::vector<size_t> neighbors;
 
-    void add_neighbor(size_t v) {
+    bool add_neighbor(size_t v) {
         auto i = std::lower_bound(neighbors.begin(), neighbors.end(), v);
-        if (i == neighbors.end() || *i != v)
+        if (i == neighbors.end() || *i != v) {
             neighbors.insert(i, v);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    void remove_neighbor(size_t v) {
+    bool remove_neighbor(size_t v) {
         auto i = std::lower_bound(neighbors.begin(), neighbors.end(), v);
-        if (i != neighbors.end() && *i == v)
+        if (i != neighbors.end() && *i == v) {
             neighbors.erase(i);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     void add_neighbors(const Span<size_t> v) {
