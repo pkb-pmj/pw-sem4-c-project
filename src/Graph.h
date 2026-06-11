@@ -4,15 +4,25 @@
 
 #include "Span.h"
 #include "Vertex.h"
+#include "triangle_count_internal.h"
 
 struct Graph {
     std::vector<Vertex> vertices;
+    size_t _triangle_count;
+    bool _triangle_count_en;
 
-    Graph(size_t V): vertices(V) {}
+    Graph(size_t V): vertices(V) {
+        _triangle_count = 0;
+        _triangle_count_en = false;
+    }
+
+    void enable_triangle_count(bool enable);
 
     bool add_edge(size_t u, size_t v) {
         if (vertices[u].add_neighbor(v)) {
             vertices[v].add_neighbor(u);
+            if (_triangle_count_en)
+                _triangle_count += intersect_count(vertices[u], vertices[v], u < v ? u : v);
             return true;
         } else {
             return false;
@@ -29,6 +39,8 @@ struct Graph {
     bool remove_edge(size_t u, size_t v) {
         if (vertices[u].remove_neighbor(v)) {
             vertices[v].remove_neighbor(u);
+            if (_triangle_count_en)
+                _triangle_count -= intersect_count(vertices[u], vertices[v], u < v ? u : v);
             return true;
         } else {
             return false;
@@ -62,5 +74,9 @@ struct Graph {
 
     const Vertex& operator[](size_t u) const {
         return vertices[u];
+    }
+
+    size_t triangle_count() const {
+        return _triangle_count;
     }
 };
