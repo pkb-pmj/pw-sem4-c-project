@@ -9,7 +9,9 @@ add_edge(sexp, u, v)
 \arguments{
 \item{sexp}{Graph object.}
 
-\item{u, }{v Vertices between which an edge will be added. Must be valid vertices in the graph, and not NA.}
+\item{u}{First vertex of the edge to be added. Must be a valid vertex in the graph, and not NA.}
+
+\item{v}{Second vertex of the edge to be added. Must be a valid vertex in the graph, and not NA.}
 }
 \value{
 TRUE if the edge has been added, FALSE if it already existed and hasn't been added.

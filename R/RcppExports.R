@@ -81,7 +81,8 @@ as_adj_matrix <- function(sexp) {
 #' Add edge to graph
 #' @description Adds an edge between vertices (u, v) if it doesn't already exist in the graph.
 #' @param sexp Graph object.
-#' @param u, v Vertices between which an edge will be added. Must be valid vertices in the graph, and not NA.
+#' @param u First vertex of the edge to be added. Must be a valid vertex in the graph, and not NA.
+#' @param v Second vertex of the edge to be added. Must be a valid vertex in the graph, and not NA.
 #' @returns TRUE if the edge has been added, FALSE if it already existed and hasn't been added.
 add_edge <- function(sexp, u, v) {
     .Call(`_graphs_add_edge`, sexp, u, v)
@@ -90,7 +91,8 @@ add_edge <- function(sexp, u, v) {
 #' Remove edge from graph
 #' @description Removes an edge between vertices (u, v) if it exists in the graph.
 #' @param sexp Graph object.
-#' @param u, v Vertices connected by the edge which will be removed. Must be valid vertices in the graph, and not NA.
+#' @param u First vertex of the edge to be removed. Must be a valid vertex in the graph, and not NA.
+#' @param v Second vertex of the edge to be removed. Must be a valid vertex in the graph, and not NA.
 #' @returns TRUE if the edge has been removed, FALSE if it didn't exist and so couldn't be removed.
 remove_edge <- function(sexp, u, v) {
     .Call(`_graphs_remove_edge`, sexp, u, v)
@@ -100,11 +102,17 @@ remove_edge <- function(sexp, u, v) {
 #'
 #' @param sexp The graph object, created using `new_graph` or any of the `from_*` functions
 #' @param method The algorithm used to count triangles: \itemize{
-#' \item brute - for each edge (u, v) count how many neighbors of u are also neighbors of v, O(E * V * log(V))
-#' \item intersect - for each edge (u, v) count the size of the intersection of their sets of neighbors, O(E * V)
+#' \item "brute" - for each edge (u, v) count how many neighbors of u are also neighbors of v, O(E * V * log(V)).
+#' \item "intersect" - for each edge (u, v) count the size of the intersection of their sets of neighbors, O(E * V).
+#' \item "online" - use the online algorithm, incrementally updating after every edge addition/removal.
+#'     If enable_online_triangle_count(sexp, TRUE) wasn't called manually, this function will do it,
+#'     computing triangle count using the offline "intersect" algorithm - so if you want maximum performance
+#'     from the first call of triangle_count(sexp, "online"), call enable_online_triangle_count(sexp, TRUE)
+#'     manually beforehand.
+#' \item NA - uses online triangle counting if it was enabled, or "intersect" otherwise.
 #' }
 #' @returns Number of unique triangles (cycles of length 3) in the graph
-triangle_count <- function(sexp, method) {
+triangle_count <- function(sexp, method = NA_character_) {
     .Call(`_graphs_triangle_count`, sexp, method)
 }
 

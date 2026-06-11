@@ -4,14 +4,20 @@
 \alias{triangle_count}
 \title{Counts triangles (cycles of length 3) in an undirected, unweighted graph}
 \usage{
-triangle_count(sexp, method)
+triangle_count(sexp, method = NA_character_)
 }
 \arguments{
 \item{sexp}{The graph object, created using `new_graph` or any of the `from_*` functions}
 
 \item{method}{The algorithm used to count triangles: \itemize{
-\item brute - for each edge (u, v) count how many neighbors of u are also neighbors of v, O(E * V * log(V))
-\item intersect - for each edge (u, v) count the size of the intersection of their sets of neighbors, O(E * V)
+\item "brute" - for each edge (u, v) count how many neighbors of u are also neighbors of v, O(E * V * log(V)).
+\item "intersect" - for each edge (u, v) count the size of the intersection of their sets of neighbors, O(E * V).
+\item "online" - use the online algorithm, incrementally updating after every edge addition/removal.
+    If enable_online_triangle_count(sexp, TRUE) wasn't called manually, this function will do it,
+    computing triangle count using the offline "intersect" algorithm - so if you want maximum performance
+    from the first call of triangle_count(sexp, "online"), call enable_online_triangle_count(sexp, TRUE)
+    manually beforehand.
+\item NA - uses online triangle counting if it was enabled, or "intersect" otherwise.
 }}
 }
 \value{

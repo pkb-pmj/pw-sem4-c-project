@@ -9,7 +9,9 @@ remove_edge(sexp, u, v)
 \arguments{
 \item{sexp}{Graph object.}
 
-\item{u, }{v Vertices connected by the edge which will be removed. Must be valid vertices in the graph, and not NA.}
+\item{u}{First vertex of the edge to be removed. Must be a valid vertex in the graph, and not NA.}
+
+\item{v}{Second vertex of the edge to be removed. Must be a valid vertex in the graph, and not NA.}
 }
 \value{
 TRUE if the edge has been removed, FALSE if it didn't exist and so couldn't be removed.
