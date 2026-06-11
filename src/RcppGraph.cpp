@@ -219,7 +219,7 @@ bool add_edge(SEXP sexp, int u, int v) {
     if (v < 1 || v > g->V())
         stop("invalid vertex v: %d", v);
 
-    return g->add_edge(u, u);
+    return g->add_edge(u - 1, v - 1);
 }
 
 //' Remove edge from graph
@@ -240,5 +240,5 @@ bool remove_edge(SEXP sexp, int u, int v) {
     if (v < 1 || v > g->V())
         stop("invalid vertex v: %d", v);
 
-    return g->remove_edge(u, u);
+    return g->remove_edge(u - 1, v - 1);
 }
